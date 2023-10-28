@@ -32,5 +32,8 @@ _ _ _
 
 **Exposición:** El dia de la exposición **todos los miembros del grupo* deberan participar de la defensa del trabajo presentado. Si algún integrante no participa de la misma se lo considerara ausente al segundo parcial y deberá recuperarlo en la fecha prevista para el recuperatorio. El recuperatorio consistira en un examen individual, sin relación con el TPO
 
-## Consigna
+## Consigna 🗒️
 [Enunciado](consignas/enunciado.md)
+
+## Archivos 📁
+[Archivos](codigo)
