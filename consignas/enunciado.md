@@ -15,6 +15,6 @@ Se solicita desarollar un programa para:
 
 6. Indicar cuál fue la pelicula que haya sido exhibida en mayor cantidad de salas. Mostrar todas las que correspondan.
 
-> Se suministra un [archivo a modo de ejemplo]() llamado peliculas.txt con 100.000 registros. El programa debe funcionar con este o cualquier otro archio con el mismo formato. El archivo no esta ordenado
+> Se suministra un [archivo a modo de ejemplo](../codigo/basesDeDatos/peliculas.txt) llamado peliculas.txt con 100.000 registros. El programa debe funcionar con este o cualquier otro archio con el mismo formato. El archivo no esta ordenado
 
 [Inicio](../README.md)
