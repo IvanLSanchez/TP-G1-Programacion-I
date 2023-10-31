@@ -7,7 +7,7 @@ Se solicita desarollar un programa para:
 
 2. Informar en qué año se verificó la mayor cantidad de espectadores, sin importar la pelicula.
 
-3. Imprimir un listado donde aparezca, año por año, la cantidad de espectafors que han ingresado a cada sala. Este listado deberá ordenarse segun el año de exhibición.
+3. Imprimir un listado donde aparezca, año por año, la cantidad de espectadores que han ingresado a cada sala. Este listado deberá ordenarse segun el año de exhibición.
 
 4. Imprimir un listado donde se visualice la cantidad de espectadores de cada perlicula. Este listado debe ordenarse alfabeticamente según el nombre de la pelicula.
 
