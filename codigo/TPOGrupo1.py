@@ -1,3 +1,5 @@
+#espectadoresAño - maximo
+
 maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda x: x[1]) #Devuelve la tupla con el valor maximo en factor de la clave
 
 def espectadoresAño(arch):
