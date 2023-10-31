@@ -35,5 +35,8 @@ _ _ _
 ## Consigna 🗒️
 [Enunciado](consignas/enunciado.md)
 
+## DER base de datos
+![DER](consignas/img/DER.png)
+
 ## Archivos 📁
 [Archivos](codigo)
