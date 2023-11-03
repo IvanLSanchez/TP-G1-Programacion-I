@@ -9,6 +9,8 @@ reglasTresSimples = lambda x,y,z: (x*y)/z    #Porcentaje, x=maximo, y=100, z= el
 
 maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda item: item[1]) #Devuelve la tupla con el valor maximo en factor de la clave
 
+ordenarDiccionarioPorKey = lambda diccionario: sorted(diccionario.items(), key=lambda item: item[1]) #Ordena un diccionario en funcion de las claves
+
 def filtrarEntradasPorAño(arch):
     """Crea un diccionario con la cantidad de entradas vendidas por año"""
     entradasAño = {}
