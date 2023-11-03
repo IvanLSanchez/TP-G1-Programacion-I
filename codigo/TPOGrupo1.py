@@ -5,11 +5,11 @@
 #####
 ######
 
-porcentaje = lambda x,y,z: (x*y)/z    #Porcentaje, x=maximo, y=100, z= el total
+reglasTresSimples = lambda x,y,z: (x*y)/z    #Porcentaje, x=maximo, y=100, z= el total
 
-maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda x: x[1]) #Devuelve la tupla con el valor maximo en factor de la clave
+maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda item: item[1]) #Devuelve la tupla con el valor maximo en factor de la clave
 
-def espectadoresAño(arch):
+def filtrarEntradasPorAño(arch):
     """Crea un diccionario con la cantidad de entradas vendidas por año"""
     entradasAño = {}
     for entrada in arch:
@@ -18,8 +18,8 @@ def espectadoresAño(arch):
         entradasAño[año] = entradasAño.get(año, 0) + 1
     return entradasAño
   
-def recopilacion(arch):
-    """recopilacion y creacion del diccionario"""
+def filtrarEntradasPorTitulo(arch):
+    """Crea un diccionario con la cantidad de entradas vendidas por titulo, sin importar el periodo"""
     dic={}
     for linea in arch:
         nombre, año, sala=linea.split(";") #Desempaquetado de datos
