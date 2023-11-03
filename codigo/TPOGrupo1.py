@@ -10,11 +10,11 @@
 reglasTresSimples = lambda x,y,z: (x*y)/z    #Porcentaje, x=maximo, y=100, z= el total
 maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda item: item[1]) #Devuelve la tupla con el valor maximo en factor de la clave
 
-# item 4
+## item 4
 ordenarDiccionarioPorKey = lambda diccionario: dict(sorted(diccionario.items(), key=lambda item: item[1])) #Ordena un diccionario en funcion de las claves
 
 # Funciones
-# item 1, 4
+## item 1, 4
 def filtrarEntradasPorTitulo(arch):
     """Crea un diccionario con la cantidad de entradas vendidas por titulo, sin importar el periodo"""
     dic={}
@@ -23,7 +23,7 @@ def filtrarEntradasPorTitulo(arch):
         dic[nombre]=dic.get(nombre,0) + 1 #agrega y acumula
     return dic 
 
-# item 2
+## item 2
 def filtrarEntradasPorAño(arch):
     """Crea un diccionario con la cantidad de entradas vendidas por año"""
     entradasAño = {}
@@ -32,7 +32,22 @@ def filtrarEntradasPorAño(arch):
         pelicula, año, sala = entrada.split(";")
         entradasAño[año] = entradasAño.get(año, 0) + 1
     return entradasAño
-  
+
+## item 4
+def imprimirDiccionarioBase (diccionario, ancho, tituloColumnas):
+    """imprime un diccionario base (key, value de 1 dato)
+    para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
+    print("-".center(ancho,"-"))
+    for titulo in tituloColumnas:
+        print(titulo.center(ancho/2),end="")
+    print()
+    print("-".center(ancho,"-"))
+    for key,value in diccionario.items():
+        print(key.center(ancho/2), end="")
+        print(str(value).center(ancho/2))
+        print("-".center(ancho,"-"))
+    
+
 #=========================================================================================================
 
 try:
