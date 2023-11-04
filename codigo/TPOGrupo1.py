@@ -1,6 +1,6 @@
-# filtrarEntradasPorTitulo-maximoDiccionario-porcentaje (maximoDiccionario(dicc)[1])*100)/sum(dicc.values())
+# filtrarEntradasPorTitulo - maximoDiccionario - porcentaje (maximoDiccionario(dicc)[1])*100)/sum(dicc.values())
 ## filtrarEntradasPorAño - maximoDiccionario
-###
+### filtrarEntradasPorTitulo - ordenarDiccionarioPorKey - imprimirDiccionarioBase
 ####
 #####
 ######
