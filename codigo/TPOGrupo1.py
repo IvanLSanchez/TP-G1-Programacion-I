@@ -76,20 +76,4 @@ def imprimirDiccionarioBase (diccionario, ancho, tituloColumnas):
         print(key.center(ancho//2), end="")
         print(str(value).center(ancho//2))
         print("-".center(ancho,"-"))
-    
-
 #=========================================================================================================
-
-try:
-    baseDeDatos = open("codigo/basesDeDatos/peliculas.txt","rt")
-    entradasTitulo = filtrarEntradasPorTitulo(baseDeDatos)
-    entradasTitulo = ordenarDiccionarioPorKey(entradasTitulo)
-    
-    imprimirDiccionarioBase(entradasTitulo, 100, ["Titulo","cantidad de Entradas"])
-except OSError:
-    print("error al abrir aechivo")
-finally:
-    try:
-        baseDeDatos.close()
-    except:
-        pass
