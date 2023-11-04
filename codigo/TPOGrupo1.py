@@ -1,15 +1,30 @@
-# recopilacion-maximoDiccionario-porcentaje (maximoDiccionario(dicc)[1])*100)/sum(dicc.values())
-## espectadoresAño - maximo
-###
+# filtrarEntradasPorTitulo - maximoDiccionario - porcentaje (maximoDiccionario(dicc)[1])*100)/sum(dicc.values())
+## filtrarEntradasPorAño - maximoDiccionario
+### filtrarEntradasPorTitulo - ordenarDiccionarioPorKey - imprimirDiccionarioBase
 ####
 #####
 ######
 
-porcentaje = lambda x,y,z: (x*y)/z    #Porcentaje, x=maximo, y=100, z= el total
+# Funciones lambda
+## item 1, 2
+reglasTresSimples = lambda x,y,z: (x*y)/z    #Porcentaje, x=maximo, y=100, z= el total
+maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda item: item[1]) #Devuelve la tupla con el valor maximo en factor de la clave
 
-maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda x: x[1]) #Devuelve la tupla con el valor maximo en factor de la clave
+## item 4
+ordenarDiccionarioPorKey = lambda diccionario: dict(sorted(diccionario.items(), key=lambda item: limpiarTitulo(item[0]))) #Ordena un diccionario en funcion de las claves
 
-def espectadoresAño(arch):
+# Funciones
+## item 1, 4
+def filtrarEntradasPorTitulo(arch):
+    """Crea un diccionario con la cantidad de entradas vendidas por titulo, sin importar el periodo"""
+    dic={}
+    for linea in arch:
+        nombre, año, sala=linea.split(";") #Desempaquetado de datos
+        dic[nombre]=dic.get(nombre,0) + 1 #agrega y acumula
+    return dic 
+
+## item 2
+def filtrarEntradasPorAño(arch):
     """Crea un diccionario con la cantidad de entradas vendidas por año"""
     entradasAño = {}
     for entrada in arch:
@@ -17,12 +32,48 @@ def espectadoresAño(arch):
         pelicula, año, sala = entrada.split(";")
         entradasAño[año] = entradasAño.get(año, 0) + 1
     return entradasAño
-  
-def recopilacion(arch):
-    """recopilacion y creacion del diccionario"""
-    dic={}
-    for linea in arch:
-        nombre, año, sala=linea.split(";") #Desempaquetado de datos
-        dic[nombre]=dic.get(nombre,0) + 1 #agrega y acumula
-    return dic 
+
+## item 4
+def quitarCaracteresEspeciales(palabra):
+    """Separa la palabra de los signos de puntuacion anteriores y posteriores"""
+    i = 0
+    while i<len(palabra) and not palabra[i].isalnum():
+        i += 1
+    j = len(palabra)-1
+    while j>i and not palabra[j].isalnum():
+        j -= 1
+    palabra = palabra [i:j+1]
+    return palabra
+
+def quitarAcentos(palabra):
+    """quita los acentos de una palabra"""
+    conTilde = "áéíóúÁÉÍÓÚ"
+    sinTilde = "aeiouAEIOU"
+    palabraSinAcentos = ""
+    for i in palabra:
+        if i in conTilde:
+            posicion = conTilde.index(i)
+            palabraSinAcentos += sinTilde[posicion]
+        else:
+            palabraSinAcentos += i
+    return palabraSinAcentos
+
+def limpiarTitulo(titulo):
+    titulo = quitarCaracteresEspeciales(titulo)
+    titulo = quitarAcentos(titulo)
+    titulo = titulo.lower()
+    return titulo
+
+def imprimirDiccionarioBase (diccionario, ancho, tituloColumnas):
+    """imprime un diccionario base (key, value de 1 dato)
+    para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
+    print("-".center(ancho,"-"))
+    for titulo in tituloColumnas:
+        print(titulo.center(ancho//2),end="")
+    print()
+    print("-".center(ancho,"-"))
+    for key,value in diccionario.items():
+        print(key.center(ancho//2), end="")
+        print(str(value).center(ancho//2))
+        print("-".center(ancho,"-"))
 #=========================================================================================================
