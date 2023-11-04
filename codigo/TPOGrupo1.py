@@ -12,6 +12,7 @@ maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda item
 
 ## item 4
 ordenarDiccionarioPorKey = lambda diccionario: dict(sorted(diccionario.items(), key=lambda item: item[0])) #Ordena un diccionario en funcion de las claves
+# item[0].despojadoDeCaracteres.lower. sin acentos
 
 # Funciones
 ## item 1, 4
@@ -34,6 +35,7 @@ def filtrarEntradasPorAño(arch):
     return entradasAño
 
 ## item 4
+
 def imprimirDiccionarioBase (diccionario, ancho, tituloColumnas):
     """imprime un diccionario base (key, value de 1 dato)
     para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
