@@ -11,8 +11,7 @@ reglasTresSimples = lambda x,y,z: (x*y)/z    #Porcentaje, x=maximo, y=100, z= el
 maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda item: item[1]) #Devuelve la tupla con el valor maximo en factor de la clave
 
 ## item 4
-ordenarDiccionarioPorKey = lambda diccionario: dict(sorted(diccionario.items(), key=lambda item: item[0])) #Ordena un diccionario en funcion de las claves
-# item[0].despojadoDeCaracteres.lower. sin acentos
+ordenarDiccionarioPorKey = lambda diccionario: dict(sorted(diccionario.items(), key=lambda item: limpiarTitulo(item[0]))) #Ordena un diccionario en funcion de las claves
 
 # Funciones
 ## item 1, 4
@@ -35,6 +34,35 @@ def filtrarEntradasPorAño(arch):
     return entradasAño
 
 ## item 4
+def quitarCaracteresEspeciales(palabra):
+    """Separa la palabra de los signos de puntuacion anteriores y posteriores"""
+    i = 0
+    while i<len(palabra) and not palabra[i].isalnum():
+        i += 1
+    j = len(palabra)-1
+    while j>i and not palabra[j].isalnum():
+        j -= 1
+    palabra = palabra [i:j+1]
+    return palabra
+
+def quitarAcentos(palabra):
+    """quita los acentos de una palabra"""
+    conTilde = "áéíóúÁÉÍÓÚ"
+    sinTilde = "aeiouAEIOU"
+    palabraSinAcentos = ""
+    for i in palabra:
+        if i in conTilde:
+            posicion = conTilde.index(i)
+            palabraSinAcentos += sinTilde[posicion]
+        else:
+            palabraSinAcentos += i
+    return palabraSinAcentos
+
+def limpiarTitulo(titulo):
+    titulo = quitarCaracteresEspeciales(titulo)
+    titulo = quitarAcentos(titulo)
+    titulo = titulo.lower()
+    return titulo
 
 def imprimirDiccionarioBase (diccionario, ancho, tituloColumnas):
     """imprime un diccionario base (key, value de 1 dato)
@@ -56,6 +84,7 @@ try:
     baseDeDatos = open("codigo/basesDeDatos/peliculas.txt","rt")
     entradasTitulo = filtrarEntradasPorTitulo(baseDeDatos)
     entradasTitulo = ordenarDiccionarioPorKey(entradasTitulo)
+    
     imprimirDiccionarioBase(entradasTitulo, 100, ["Titulo","cantidad de Entradas"])
 except OSError:
     print("error al abrir aechivo")
