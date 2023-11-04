@@ -11,7 +11,7 @@ reglasTresSimples = lambda x,y,z: (x*y)/z    #Porcentaje, x=maximo, y=100, z= el
 maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda item: item[1]) #Devuelve la tupla con el valor maximo en factor de la clave
 
 ## item 4
-ordenarDiccionarioPorKey = lambda diccionario: dict(sorted(diccionario.items(), key=lambda item: item[1])) #Ordena un diccionario en funcion de las claves
+ordenarDiccionarioPorKey = lambda diccionario: dict(sorted(diccionario.items(), key=lambda item: item[0])) #Ordena un diccionario en funcion de las claves
 
 # Funciones
 ## item 1, 4
@@ -39,20 +39,22 @@ def imprimirDiccionarioBase (diccionario, ancho, tituloColumnas):
     para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
     print("-".center(ancho,"-"))
     for titulo in tituloColumnas:
-        print(titulo.center(ancho/2),end="")
+        print(titulo.center(ancho//2),end="")
     print()
     print("-".center(ancho,"-"))
     for key,value in diccionario.items():
-        print(key.center(ancho/2), end="")
-        print(str(value).center(ancho/2))
+        print(key.center(ancho//2), end="")
+        print(str(value).center(ancho//2))
         print("-".center(ancho,"-"))
     
 
 #=========================================================================================================
 
 try:
-    baseDeDatos = open("peliculas.txt","rt")
-    
+    baseDeDatos = open("codigo/basesDeDatos/peliculas.txt","rt")
+    entradasTitulo = filtrarEntradasPorTitulo(baseDeDatos)
+    entradasTitulo = ordenarDiccionarioPorKey(entradasTitulo)
+    imprimirDiccionarioBase(entradasTitulo, 100, ["Titulo","cantidad de Entradas"])
 except OSError:
     print("error al abrir aechivo")
 finally:
