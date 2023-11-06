@@ -1,7 +1,7 @@
 # filtrarEntradasPorTitulo - maximoDiccionario - porcentaje (maximoDiccionario(dicc)[1])*100)/sum(dicc.values())
 ## filtrarEntradasPorAño - maximoDiccionario
-### filtrarEntradasPorTitulo - ordenarDiccionarioPorKey - imprimirDiccionarioBase
-####
+### espectadoresxSala - ordenarDiccionarioPorKey - imprimirTabla3ColumnasDict
+#### filtrarEntradasPorTitulo - ordenarDiccionarioPorKey - imprimirTabla2ColumnasDict
 #####
 ######
 
@@ -54,7 +54,8 @@ def espectadoresxSala(arch):
         espectadores[año][sala] = espectadores[año].get(sala,0) + 1
     return espectadores
 
-def imprimirArbol(arbol,ancho, tituloColumnas):
+def imprimirTabla3ColumnasDict(arbol,ancho, tituloColumnas):
+    """imprime un arbol base {key:{key:value},...} para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
     imprimirTitulos(tituloColumnas,ancho)
     for key,value in arbol.items():
         ponerKey=True
@@ -69,9 +70,6 @@ def imprimirArbol(arbol,ancho, tituloColumnas):
             print()
         print("-".center(ancho,"-"))  
                   
-
-
-
 ## item 4
 def quitarCaracteresEspeciales(palabra):
     """Separa la palabra de los signos de puntuacion anteriores y posteriores"""
@@ -103,26 +101,11 @@ def limpiarTitulo(titulo):
     titulo = titulo.lower()
     return titulo
 
-def imprimirDiccionarioBase (diccionario, ancho, tituloColumnas):
-    """imprime un diccionario base (key, value de 1 dato)
-    para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
+def imprimirTabla2ColumnasDict(diccionario, ancho, tituloColumnas):
+    """imprime un diccionario base (key, value) para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
     imprimirTitulos(tituloColumnas,ancho)
     for key,value in diccionario.items():
         print(key.center(ancho//2), end="")
         print(str(value).center(ancho//2))
         print("-".center(ancho,"-"))
 #=========================================================================================================
-"""
-try:
-    baseDeDatos = open("codigo/basesDeDatos/peliculas.txt","rt")
-    test = espectadoresxSala(baseDeDatos)
-    imprimirArbol(ordenarDiccionarioPorKey(test),150,["año","sala","espectadores"])
-
-except OSError:
-    print("error al abrir aechivo")
-finally:
-    try:
-        baseDeDatos.close()
-    except:
-        pass
-"""
