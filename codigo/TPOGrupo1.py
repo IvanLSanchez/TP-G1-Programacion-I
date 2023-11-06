@@ -44,6 +44,28 @@ def espectadoresxSala(arch):
         espectadores[año][sala] = espectadores[año].get(sala,0) + 1
     return espectadores
 
+def imprimirArbol(arbol,ancho, tituloColumnas):
+    print("-".center(ancho,"-"))
+    for titulo in tituloColumnas:
+        print(titulo.center(ancho//3),end="")
+    print()
+    print("-".center(ancho,"-"))
+    for key,value in arbol.items():
+        ponerKey=True
+        for key2,value2 in value.items():
+            if ponerKey:
+                print(key.center(ancho//3), end="")
+                ponerKey = False
+            else:
+                print(" ".center(ancho//3), end="")
+            print(key2.center(ancho//3), end="")
+            print(str(value2).center(ancho//3))
+            print()
+        print("-".center(ancho,"-"))  
+                  
+
+
+
 ## item 4
 def quitarCaracteresEspeciales(palabra):
     """Separa la palabra de los signos de puntuacion anteriores y posteriores"""
@@ -87,12 +109,12 @@ def imprimirDiccionarioBase (diccionario, ancho, tituloColumnas):
         print(key.center(ancho//2), end="")
         print(str(value).center(ancho//2))
         print("-".center(ancho,"-"))
-
 #=========================================================================================================
 try:
     baseDeDatos = open("codigo/basesDeDatos/peliculas.txt","rt")
     test = espectadoresxSala(baseDeDatos)
-    test = ordenarDiccionarioPorKey(test)
+    imprimirArbol(ordenarDiccionarioPorKey(test),150,["año","sala","espectadores"])
+
 except OSError:
     print("error al abrir aechivo")
 finally:
