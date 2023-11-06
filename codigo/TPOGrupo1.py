@@ -33,6 +33,16 @@ def filtrarEntradasPorAño(arch):
         entradasAño[año] = entradasAño.get(año, 0) + 1
     return entradasAño
 
+## item 3,4
+def imprimirTitulos(tituloColumnas,ancho):
+    cantTitulos = len(tituloColumnas)
+    print("-".center(ancho,"-"))
+    for titulo in tituloColumnas:
+        print(titulo.center(ancho//cantTitulos),end="")
+    print()
+    print("-".center(ancho,"-"))
+
+
 ## item 3
 def espectadoresxSala(arch):
     espectadores = {}
@@ -45,11 +55,7 @@ def espectadoresxSala(arch):
     return espectadores
 
 def imprimirArbol(arbol,ancho, tituloColumnas):
-    print("-".center(ancho,"-"))
-    for titulo in tituloColumnas:
-        print(titulo.center(ancho//3),end="")
-    print()
-    print("-".center(ancho,"-"))
+    imprimirTitulos(tituloColumnas,ancho)
     for key,value in arbol.items():
         ponerKey=True
         for key2,value2 in value.items():
@@ -100,16 +106,13 @@ def limpiarTitulo(titulo):
 def imprimirDiccionarioBase (diccionario, ancho, tituloColumnas):
     """imprime un diccionario base (key, value de 1 dato)
     para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
-    print("-".center(ancho,"-"))
-    for titulo in tituloColumnas:
-        print(titulo.center(ancho//2),end="")
-    print()
-    print("-".center(ancho,"-"))
+    imprimirTitulos(tituloColumnas,ancho)
     for key,value in diccionario.items():
         print(key.center(ancho//2), end="")
         print(str(value).center(ancho//2))
         print("-".center(ancho,"-"))
 #=========================================================================================================
+"""
 try:
     baseDeDatos = open("codigo/basesDeDatos/peliculas.txt","rt")
     test = espectadoresxSala(baseDeDatos)
@@ -122,3 +125,4 @@ finally:
         baseDeDatos.close()
     except:
         pass
+"""
