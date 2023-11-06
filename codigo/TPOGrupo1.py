@@ -1,7 +1,7 @@
 # filtrarEntradasPorTitulo - maximoDiccionario - porcentaje (maximoDiccionario(dicc)[1])*100)/sum(dicc.values())
 ## filtrarEntradasPorAño - maximoDiccionario
-### filtrarEntradasPorTitulo - ordenarDiccionarioPorKey - imprimirDiccionarioBase
-####
+### espectadoresxSala - ordenarDiccionarioPorKey - imprimirTabla3ColumnasDict
+#### filtrarEntradasPorTitulo - ordenarDiccionarioPorKey - imprimirTabla2ColumnasDict
 #####
 ######
 
@@ -33,6 +33,43 @@ def filtrarEntradasPorAño(arch):
         entradasAño[año] = entradasAño.get(año, 0) + 1
     return entradasAño
 
+## item 3,4
+def imprimirTitulos(tituloColumnas,ancho):
+    cantTitulos = len(tituloColumnas)
+    print("-".center(ancho,"-"))
+    for titulo in tituloColumnas:
+        print(titulo.center(ancho//cantTitulos),end="")
+    print()
+    print("-".center(ancho,"-"))
+
+
+## item 3
+def espectadoresxSala(arch):
+    espectadores = {}
+    for linea in arch:
+        linea = linea.strip()
+        pelicula, año, sala = linea.split(";")
+        if año not in espectadores:
+            espectadores[año] = {}
+        espectadores[año][sala] = espectadores[año].get(sala,0) + 1
+    return espectadores
+
+def imprimirTabla3ColumnasDict(arbol,ancho, tituloColumnas):
+    """imprime un arbol base {key:{key:value},...} para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
+    imprimirTitulos(tituloColumnas,ancho)
+    for key,value in arbol.items():
+        ponerKey=True
+        for key2,value2 in value.items():
+            if ponerKey:
+                print(key.center(ancho//3), end="")
+                ponerKey = False
+            else:
+                print(" ".center(ancho//3), end="")
+            print(key2.center(ancho//3), end="")
+            print(str(value2).center(ancho//3))
+            print()
+        print("-".center(ancho,"-"))  
+                  
 ## item 4
 def quitarCaracteresEspeciales(palabra):
     """Separa la palabra de los signos de puntuacion anteriores y posteriores"""
@@ -64,14 +101,9 @@ def limpiarTitulo(titulo):
     titulo = titulo.lower()
     return titulo
 
-def imprimirDiccionarioBase (diccionario, ancho, tituloColumnas):
-    """imprime un diccionario base (key, value de 1 dato)
-    para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
-    print("-".center(ancho,"-"))
-    for titulo in tituloColumnas:
-        print(titulo.center(ancho//2),end="")
-    print()
-    print("-".center(ancho,"-"))
+def imprimirTabla2ColumnasDict(diccionario, ancho, tituloColumnas):
+    """imprime un diccionario base (key, value) para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
+    imprimirTitulos(tituloColumnas,ancho)
     for key,value in diccionario.items():
         print(key.center(ancho//2), end="")
         print(str(value).center(ancho//2))
