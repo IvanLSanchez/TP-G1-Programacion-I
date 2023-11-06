@@ -33,6 +33,17 @@ def filtrarEntradasPorAño(arch):
         entradasAño[año] = entradasAño.get(año, 0) + 1
     return entradasAño
 
+## item 3
+def espectadoresxSala(arch):
+    espectadores = {}
+    for linea in arch:
+        linea = linea.strip()
+        pelicula, año, sala = linea.split(";")
+        if año not in espectadores:
+            espectadores[año] = {}
+        espectadores[año][sala] = espectadores[año].get(sala,0) + 1
+    return espectadores
+
 ## item 4
 def quitarCaracteresEspeciales(palabra):
     """Separa la palabra de los signos de puntuacion anteriores y posteriores"""
@@ -76,4 +87,16 @@ def imprimirDiccionarioBase (diccionario, ancho, tituloColumnas):
         print(key.center(ancho//2), end="")
         print(str(value).center(ancho//2))
         print("-".center(ancho,"-"))
+
 #=========================================================================================================
+try:
+    baseDeDatos = open("codigo/basesDeDatos/peliculas.txt","rt")
+    test = espectadoresxSala(baseDeDatos)
+    test = ordenarDiccionarioPorKey(test)
+except OSError:
+    print("error al abrir aechivo")
+finally:
+    try:
+        baseDeDatos.close()
+    except:
+        pass
