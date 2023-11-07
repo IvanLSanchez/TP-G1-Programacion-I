@@ -13,6 +13,10 @@ maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda item
 ## item 4
 ordenarDiccionarioPorKey = lambda diccionario: dict(sorted(diccionario.items(), key=lambda item: limpiarTitulo(item[0]))) #Ordena un diccionario en funcion de las claves
 
+## item 6
+mayorCantidadDeSalas = lambda diccionario: len(max(diccionario.values(), key=lambda x: len(x)))
+filtrarPeliculasMayorSalas = lambda diccionario, mayor: dict(filter(lambda x: x[1]==mayor,diccionario.items()))
+
 # Funciones
 ## item 1, 4
 def filtrarEntradasPorTitulo(arch):
@@ -108,4 +112,34 @@ def imprimirTabla2ColumnasDict(diccionario, ancho, tituloColumnas):
         print(key.center(ancho//2), end="")
         print(str(value).center(ancho//2))
         print("-".center(ancho,"-"))
+
+## item 6
+def salasTransmitidas(archivo):
+    salas = {}
+    for linea in archivo:
+        linea = linea.strip()
+        pelicula, año, sala = linea.split(";")
+        if pelicula not in salas:
+            salas[pelicula] = set()
+        salas[pelicula].add(sala)
+    return salas
+
+def filtrarPeliculasMayorSalas(diccionario):
+    mayor = mayorCantidadDeSalas(diccionario)
+    filtrado = []
+    for key,value in diccionario.items():
+        if len(value) == mayor:
+            filtrado.append(key)
+    return filtrado
 #=========================================================================================================
+try:
+    baseDeDatos = open("codigo/basesDeDatos/peliculas2.txt","rt")
+    test = salasTransmitidas(baseDeDatos)
+
+except OSError:
+    print("error al abrir aechivo")
+finally:
+    try:
+        baseDeDatos.close()
+    except:
+        pass
