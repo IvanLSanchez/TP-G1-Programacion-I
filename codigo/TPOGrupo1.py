@@ -3,7 +3,7 @@
 ### espectadoresxSala - ordenarDiccionarioPorKey - imprimirTabla3ColumnasDict
 #### filtrarEntradasPorTitulo - ordenarDiccionarioPorKey - imprimirTabla2ColumnasDict
 #####
-######
+###### salasTransmitidas - filtrarPeliculasMayorSala - imprimirLista
 
 # Funciones lambda
 ## item 1, 2
@@ -12,6 +12,9 @@ maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda item
 
 ## item 4
 ordenarDiccionarioPorKey = lambda diccionario: dict(sorted(diccionario.items(), key=lambda item: limpiarTitulo(item[0]))) #Ordena un diccionario en funcion de las claves
+
+## item 6
+mayorCantidadDeSalas = lambda diccionario: len(max(diccionario.values(), key=lambda x: len(x)))
 
 # Funciones
 ## item 1, 4
@@ -33,7 +36,7 @@ def filtrarEntradasPorAño(arch):
         entradasAño[año] = entradasAño.get(año, 0) + 1
     return entradasAño
 
-## item 3,4
+## item 3,4,6
 def imprimirTitulos(tituloColumnas,ancho):
     cantTitulos = len(tituloColumnas)
     print("-".center(ancho,"-"))
@@ -108,4 +111,26 @@ def imprimirTabla2ColumnasDict(diccionario, ancho, tituloColumnas):
         print(key.center(ancho//2), end="")
         print(str(value).center(ancho//2))
         print("-".center(ancho,"-"))
+
+## item 6
+def salasTransmitidas(archivo):
+    salas = {}
+    for linea in archivo:
+        linea = linea.strip()
+        pelicula, año, sala = linea.split(";")
+        if pelicula not in salas:
+            salas[pelicula] = set()
+        salas[pelicula].add(sala)
+    return salas
+
+def imprimirLista(lista,ancho,titulo):
+    imprimirTitulos([titulo],ancho)
+    for i in lista:
+        print(i.center(ancho))
+        print("-".center(ancho,"-"))
+
+def filtrarPeliculasMayorSalas(diccionario):
+    mayor = mayorCantidadDeSalas(diccionario)
+    filtrado = [key for key,value in diccionario.items() if len(value)==mayor]
+    return filtrado
 #=========================================================================================================
