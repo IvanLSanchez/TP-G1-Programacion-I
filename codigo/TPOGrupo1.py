@@ -5,75 +5,16 @@
 #####
 ###### salasTransmitidas - filtrarPeliculasMayorSala - imprimirLista
 
-# Funciones lambda
-## item 1, 2
+# Funciones
+## Procesamiento
 reglasTresSimples = lambda x,y,z: (x*y)/z    #Porcentaje, x=maximo, y=100, z= el total
+
 maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda item: item[1]) #Devuelve la tupla con el valor maximo en factor de la clave
 
-## item 4
 ordenarDiccionarioPorKey = lambda diccionario: dict(sorted(diccionario.items(), key=lambda item: limpiarTitulo(item[0]))) #Ordena un diccionario en funcion de las claves
 
-## item 6
 mayorCantidadDeSalas = lambda diccionario: len(max(diccionario.values(), key=lambda x: len(x)))
 
-# Funciones
-## item 1, 4
-def filtrarEntradasPorTitulo(arch):
-    """Crea un diccionario con la cantidad de entradas vendidas por titulo, sin importar el periodo"""
-    dic={}
-    for linea in arch:
-        nombre, año, sala=linea.split(";") #Desempaquetado de datos
-        dic[nombre]=dic.get(nombre,0) + 1 #agrega y acumula
-    return dic 
-
-## item 2
-def filtrarEntradasPorAño(arch):
-    """Crea un diccionario con la cantidad de entradas vendidas por año"""
-    entradasAño = {}
-    for entrada in arch:
-        entrada = entrada.strip()
-        pelicula, año, sala = entrada.split(";")
-        entradasAño[año] = entradasAño.get(año, 0) + 1
-    return entradasAño
-
-## item 3,4,6
-def imprimirTitulos(tituloColumnas,ancho):
-    cantTitulos = len(tituloColumnas)
-    print("-".center(ancho,"-"))
-    for titulo in tituloColumnas:
-        print(titulo.center(ancho//cantTitulos),end="")
-    print()
-    print("-".center(ancho,"-"))
-
-
-## item 3
-def espectadoresxSala(arch):
-    espectadores = {}
-    for linea in arch:
-        linea = linea.strip()
-        pelicula, año, sala = linea.split(";")
-        if año not in espectadores:
-            espectadores[año] = {}
-        espectadores[año][sala] = espectadores[año].get(sala,0) + 1
-    return espectadores
-
-def imprimirTabla3ColumnasDict(arbol,ancho, tituloColumnas):
-    """imprime un arbol base {key:{key:value},...} para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
-    imprimirTitulos(tituloColumnas,ancho)
-    for key,value in arbol.items():
-        ponerKey=True
-        for key2,value2 in value.items():
-            if ponerKey:
-                print(key.center(ancho//3), end="")
-                ponerKey = False
-            else:
-                print(" ".center(ancho//3), end="")
-            print(key2.center(ancho//3), end="")
-            print(str(value2).center(ancho//3))
-            print()
-        print("-".center(ancho,"-"))  
-                  
-## item 4
 def quitarCaracteresEspeciales(palabra):
     """Separa la palabra de los signos de puntuacion anteriores y posteriores"""
     i = 0
@@ -104,15 +45,39 @@ def limpiarTitulo(titulo):
     titulo = titulo.lower()
     return titulo
 
-def imprimirTabla2ColumnasDict(diccionario, ancho, tituloColumnas):
-    """imprime un diccionario base (key, value) para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
-    imprimirTitulos(tituloColumnas,ancho)
-    for key,value in diccionario.items():
-        print(key.center(ancho//2), end="")
-        print(str(value).center(ancho//2))
-        print("-".center(ancho,"-"))
+def filtrarPeliculasMayorSalas(diccionario):
+    mayor = mayorCantidadDeSalas(diccionario)
+    filtrado = [key for key,value in diccionario.items() if len(value)==mayor]
+    return filtrado
 
-## item 6
+## Filtracion
+def filtrarEntradasPorTitulo(arch):
+    """Crea un diccionario con la cantidad de entradas vendidas por titulo, sin importar el periodo"""
+    dic={}
+    for linea in arch:
+        nombre, año, sala=linea.split(";") #Desempaquetado de datos
+        dic[nombre]=dic.get(nombre,0) + 1 #agrega y acumula
+    return dic 
+
+def filtrarEntradasPorAño(arch):
+    """Crea un diccionario con la cantidad de entradas vendidas por año"""
+    entradasAño = {}
+    for entrada in arch:
+        entrada = entrada.strip()
+        pelicula, año, sala = entrada.split(";")
+        entradasAño[año] = entradasAño.get(año, 0) + 1
+    return entradasAño
+
+def espectadoresxSala(arch):
+    espectadores = {}
+    for linea in arch:
+        linea = linea.strip()
+        pelicula, año, sala = linea.split(";")
+        if año not in espectadores:
+            espectadores[año] = {}
+        espectadores[año][sala] = espectadores[año].get(sala,0) + 1
+    return espectadores
+
 def salasTransmitidas(archivo):
     salas = {}
     for linea in archivo:
@@ -123,14 +88,54 @@ def salasTransmitidas(archivo):
         salas[pelicula].add(sala)
     return salas
 
+## Pantalla
+def imprimirTitulos(tituloColumnas,ancho):
+    cantTitulos = len(tituloColumnas)
+    print("-".center(ancho,"-"))
+    for titulo in tituloColumnas:
+        print(titulo.center(ancho//cantTitulos),end="")
+    print()
+    print("-".center(ancho,"-"))
+
 def imprimirLista(lista,ancho,titulo):
     imprimirTitulos([titulo],ancho)
     for i in lista:
         print(i.center(ancho))
         print("-".center(ancho,"-"))
 
-def filtrarPeliculasMayorSalas(diccionario):
-    mayor = mayorCantidadDeSalas(diccionario)
-    filtrado = [key for key,value in diccionario.items() if len(value)==mayor]
-    return filtrado
+def imprimirTabla2ColumnasDict(diccionario, ancho, tituloColumnas):
+    """imprime un diccionario base (key, value) para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
+    imprimirTitulos(tituloColumnas,ancho)
+    for key,value in diccionario.items():
+        print(key.center(ancho//2), end="")
+        print(str(value).center(ancho//2))
+        print("-".center(ancho,"-"))
+
+def imprimirTabla3ColumnasDict(arbol,ancho, tituloColumnas):
+    """imprime un arbol base {key:{key:value},...} para hacerlo necesita el ancho que ocupara y los titulos para los dos encabezados"""
+    imprimirTitulos(tituloColumnas,ancho)
+    for key,value in arbol.items():
+        ponerKey=True
+        for key2,value2 in value.items():
+            if ponerKey:
+                print(key.center(ancho//3), end="")
+                ponerKey = False
+            else:
+                print(" ".center(ancho//3), end="")
+            print(key2.center(ancho//3), end="")
+            print(str(value2).center(ancho//3))
+            print()
+        print("-".center(ancho,"-"))
 #=========================================================================================================
+try:
+    baseDeDatos = open("codigo/basesDeDatos/peliculas.txt","rt")
+    test = salasTransmitidas(baseDeDatos)
+    test = filtrarPeliculasMayorSalas(test)
+    imprimirLista(test, 80, "pelicula/s que tienen mayor cantidad de salas trasmitidas")
+except OSError:
+    print("error al abrir aechivo")
+finally:
+    try:
+        baseDeDatos.close()
+    except:
+        pass
