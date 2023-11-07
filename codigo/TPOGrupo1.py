@@ -3,7 +3,7 @@
 ### espectadoresxSala - ordenarDiccionarioPorKey - imprimirTabla3ColumnasDict
 #### filtrarEntradasPorTitulo - ordenarDiccionarioPorKey - imprimirTabla2ColumnasDict
 #####
-######
+###### salasTransmitidas - filtrarPeliculasMayorSala - imprimirLista
 
 # Funciones lambda
 ## item 1, 2
@@ -15,7 +15,6 @@ ordenarDiccionarioPorKey = lambda diccionario: dict(sorted(diccionario.items(), 
 
 ## item 6
 mayorCantidadDeSalas = lambda diccionario: len(max(diccionario.values(), key=lambda x: len(x)))
-filtrarPeliculasMayorSalas = lambda diccionario, mayor: dict(filter(lambda x: x[1]==mayor,diccionario.items()))
 
 # Funciones
 ## item 1, 4
@@ -37,7 +36,7 @@ def filtrarEntradasPorAño(arch):
         entradasAño[año] = entradasAño.get(año, 0) + 1
     return entradasAño
 
-## item 3,4
+## item 3,4,6
 def imprimirTitulos(tituloColumnas,ancho):
     cantTitulos = len(tituloColumnas)
     print("-".center(ancho,"-"))
@@ -124,18 +123,22 @@ def salasTransmitidas(archivo):
         salas[pelicula].add(sala)
     return salas
 
+def imprimirLista(lista,ancho,titulo):
+    imprimirTitulos([titulo],ancho)
+    for i in lista:
+        print(i.center(ancho))
+        print("-".center(ancho,"-"))
+
 def filtrarPeliculasMayorSalas(diccionario):
     mayor = mayorCantidadDeSalas(diccionario)
-    filtrado = []
-    for key,value in diccionario.items():
-        if len(value) == mayor:
-            filtrado.append(key)
+    filtrado = [key for key,value in diccionario.items() if len(value)==mayor]
     return filtrado
 #=========================================================================================================
 try:
     baseDeDatos = open("codigo/basesDeDatos/peliculas2.txt","rt")
     test = salasTransmitidas(baseDeDatos)
-
+    test = filtrarPeliculasMayorSalas(test)
+    imprimirLista(test, 80, "pelicula/s que tienen mayor cantidad de salas trasmitidas")
 except OSError:
     print("error al abrir aechivo")
 finally:
