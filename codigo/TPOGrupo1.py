@@ -134,15 +134,3 @@ def filtrarPeliculasMayorSalas(diccionario):
     filtrado = [key for key,value in diccionario.items() if len(value)==mayor]
     return filtrado
 #=========================================================================================================
-try:
-    baseDeDatos = open("codigo/basesDeDatos/peliculas2.txt","rt")
-    test = salasTransmitidas(baseDeDatos)
-    test = filtrarPeliculasMayorSalas(test)
-    imprimirLista(test, 80, "pelicula/s que tienen mayor cantidad de salas trasmitidas")
-except OSError:
-    print("error al abrir aechivo")
-finally:
-    try:
-        baseDeDatos.close()
-    except:
-        pass
