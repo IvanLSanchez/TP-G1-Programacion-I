@@ -208,7 +208,7 @@ try:
                 seguir = input("¿Desa realizar otra función? (Y/N): ")
                 assert seguir.isalpha(), "\nSolo insertar letras. Intente nuevamente.\n"
                 seguir = seguir.upper()
-                assert seguir == "Y" or seguir == "N", "\nSolo insertar ´Y´ (yes) o ´N´ (no). Intente nuevamente.\n"
+                assert seguir == "Y" or seguir == "N", "\nSolo insertar ´Y´ (yes) o ´N´ (not). Intente nuevamente.\n"
                 opcion = accion() if seguir == "Y" else 7
                 if seguir == "Y":
                     baseDeDatos.seek(0)
