@@ -92,7 +92,7 @@ def mejorComboSalaPelicula(diccionario):
     for key,value in diccionario.items():
         diccionario[key] = maximoDiccionario(value)
     combo = max(diccionario.items(), key=lambda item: item[1][1])
-    return combo
+    return [["Pelicula","Sala"],[combo[0],combo[1][0]]]
 
 ## Pantalla
 def accion():
@@ -144,6 +144,16 @@ def imprimirTabla2ColumnasDict(diccionario,ancho,tituloColumnas):
         print(key.center(anchoColumna), end="")
         print(str(value).center(anchoColumna))
         print("-".center(ancho,"-"))
+    
+def imprimirTabla2ColumnasList(matriz,anchos):
+    """imprime matriz Nx2, los titulos tienen que estar incluidos como la primer fila de la matriz. el ancho se puede personalizar 
+    segun las necesidades de cada columna"""
+    anchoTotal = sum(anchos)
+    print("-".center(anchoTotal,"-"))
+    for i,j in matriz:
+        print(i.center(anchos[0]), end="")
+        print(j.center(anchos[1]))
+        print("-".center(anchoTotal,"-"))
 
 def imprimirTabla3ColumnasDict(arbol,ancho, tituloColumnas):
     """Imprime un árbol base {key:{key:value},...} para hacerlo necesita el ancho que ocupará 
@@ -182,15 +192,18 @@ try:
         elif opcion == 3:
             filtrarEntradasPorAñoYSala(baseDeDatos, filtracion)
             filtracion=ordenarDiccionarioPorKey(filtracion)
-            imprimirTabla3ColumnasDict(filtracion,150,["Año", "Sala", "Cantidad de espectadores"])
+            imprimirTabla3ColumnasDict(filtracion,100,["Año", "Sala", "Cantidad de espectadores"])
         elif opcion == 4:
             filtrarEntradasPorTitulo(baseDeDatos, filtracion)
             filtracion=ordenarDiccionarioPorKey(filtracion)
-            imprimirTabla2ColumnasDict(filtracion,100,["Película","Cantidad de espectadores"])
+            imprimirTabla2ColumnasDict(filtracion,130,["Película","Cantidad de espectadores"])
         elif opcion == 5:
             filtrarEntradasPorPeliculaYSala(baseDeDatos, filtracion)
-            combo=mejorComboSalaPelicula(filtracion) 
-            print(f"La mejor combinación sala - película es: '{combo[0]}' - sala {combo[1][0]}.")
+            combo=mejorComboSalaPelicula(filtracion)
+            lenTitulo = len(combo[1][0])
+            lenSala = len(combo[1][1])
+            imprimirTabla2ColumnasList(combo,[lenTitulo if lenTitulo > 12 else 12,lenSala if lenSala > 12 else 12])
+            #print(f"La mejor combinación sala - película es: '{combo[0]}' - sala {combo[1][0]}.")
         else:
             filtrarEntradasPorPeliculaYSala(baseDeDatos, filtracion)
             filtrarPeliculasMayor=peliculasConMasSalas(filtracion)
