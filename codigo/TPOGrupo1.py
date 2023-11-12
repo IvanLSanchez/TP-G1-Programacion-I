@@ -43,11 +43,11 @@ reglasTresSimples = lambda x,y,z: (x*y)/z
 maximoDiccionario = lambda diccionario: max(diccionario.items(), key=lambda item: item[1]) 
     #Devuelve la tupla con el valor maximo en factor de la clave.
 
-ordenarDiccionarioPorKey = lambda diccionario: dict(sorted(diccionario.items(), key=lambda item: limpiarTitulo(item[0]))) 
-    #Ordena un diccionario en funcion de las claves.
-
 maximaLongitudValues = lambda diccionario: len(max(diccionario.values(), key=lambda item: len(item))) 
     # Devuelve la longitud del iterable de mayor longitud de un diccionario.
+
+ordenarDiccionarioPorKey = lambda diccionario: sorted([list(i) for i in diccionario.items()], key= lambda item: limpiarTitulo(item[0]))
+    #Crea una matriz de orden Nx2 [[key,value],...] y la ordena en funcion de los datos de la 1er columna.
 
 def quitarCaracteresEspeciales(palabra):
     """Separa la palabra de los signos de puntuación anteriores y posteriores."""
@@ -135,22 +135,22 @@ def imprimirLista(lista,ancho):
         print("-".center(ancho,"-"))
         imprimirLista(lista[1:],ancho)
 
-def imprimirTabla2ColumnasDict(diccionario,ancho,tituloColumnas):
-    """Imprime un diccionario base (key, value) para hacerlo necesita el ancho que ocupará
+def imprimirTabla2Columnas(matriz,ancho,tituloColumnas):
+    """Imprime una matriz Nx2 para hacerlo necesita el ancho que ocupará
     y los títulos para los dos encabezados."""
     imprimirTitulos(tituloColumnas,ancho)
     anchoColumna = ancho // 2
-    for key,value in diccionario.items():
+    for key,value in matriz:
         print(key.center(anchoColumna), end="")
         print(str(value).center(anchoColumna))
         print("-".center(ancho,"-"))
 
-def imprimirTabla3ColumnasDict(arbol,ancho, tituloColumnas):
-    """Imprime un árbol base {key:{key:value},...} para hacerlo necesita el ancho que ocupará 
+def imprimirTabla3ColumnasDict(matriz,ancho, tituloColumnas):
+    """Imprime una matriz de orden Nx2 donde la 2da columna es un diccionario [[key,{key:value}],...] para hacerlo necesita el ancho que ocupará 
     y los títulos para los dos encabezados."""
     imprimirTitulos(tituloColumnas,ancho)
     anchoColumna = ancho//3
-    for key,value in arbol.items():
+    for key,value in matriz:
         ponerKey=True
         for key2,value2 in value.items():
             if ponerKey:
@@ -186,7 +186,7 @@ try:
         elif opcion == 4:
             filtrarEntradasPorTitulo(baseDeDatos, filtracion)
             filtracion=ordenarDiccionarioPorKey(filtracion)
-            imprimirTabla2ColumnasDict(filtracion,130,["Película","Cantidad de espectadores"])
+            imprimirTabla2Columnas(filtracion,130,["Película","Cantidad de espectadores"])
         elif opcion == 5:
             filtrarEntradasPorPeliculaYSala(baseDeDatos, filtracion)
             combo=mejorComboSalaPelicula(filtracion)
