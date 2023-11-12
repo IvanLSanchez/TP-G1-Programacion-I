@@ -215,11 +215,9 @@ try:
                 assert seguir.isalpha(), "\nSolo insertar letras. Intente nuevamente.\n"
                 seguir = seguir.upper()
                 assert seguir == "Y" or seguir == "N", "\nSolo insertar 'Y' (yes) o 'N' (not). Intente nuevamente.\n"
+                opcion = accion() if seguir == "Y" else 7
                 if seguir == "Y":
                     baseDeDatos.seek(0)
-                    opcion = accion()
-                else:
-                    opcion = 7
                 break
             except AssertionError as mensaje:
                 print(mensaje)
