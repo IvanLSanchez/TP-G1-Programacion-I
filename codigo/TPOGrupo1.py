@@ -164,7 +164,7 @@ def imprimirTabla3ColumnasDict(matriz,ancho, tituloColumnas):
         print("-".center(ancho,"-"))
 #=========================================================================================================
 try:
-    baseDeDatos = open("codigo/basesDeDatos/peliculas3.txt","rt")
+    baseDeDatos = open("codigo/basesDeDatos/peliculas.txt","rt")
     print("Bienvenidos al centro de estadísticas de cines mcPato.")
     opcion = accion()
     while opcion != 7:
