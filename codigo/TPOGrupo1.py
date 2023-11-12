@@ -92,7 +92,7 @@ def mejorComboSalaPelicula(diccionario):
     for key,value in diccionario.items():
         diccionario[key] = maximoDiccionario(value)
     combo = max(diccionario.items(), key=lambda item: item[1][1])
-    return [["Pelicula","Sala"],[combo[0],combo[1][0]]]
+    return combo
 
 ## Pantalla
 def accion():
@@ -144,16 +144,6 @@ def imprimirTabla2ColumnasDict(diccionario,ancho,tituloColumnas):
         print(key.center(anchoColumna), end="")
         print(str(value).center(anchoColumna))
         print("-".center(ancho,"-"))
-    
-def imprimirTabla2ColumnasList(matriz,anchos):
-    """imprime matriz Nx2, los titulos tienen que estar incluidos como la primer fila de la matriz. el ancho se puede personalizar 
-    segun las necesidades de cada columna"""
-    anchoTotal = sum(anchos)
-    print("-".center(anchoTotal,"-"))
-    for i,j in matriz:
-        print(i.center(anchos[0]), end="")
-        print(j.center(anchos[1]))
-        print("-".center(anchoTotal,"-"))
 
 def imprimirTabla3ColumnasDict(arbol,ancho, tituloColumnas):
     """Imprime un árbol base {key:{key:value},...} para hacerlo necesita el ancho que ocupará 
@@ -200,10 +190,7 @@ try:
         elif opcion == 5:
             filtrarEntradasPorPeliculaYSala(baseDeDatos, filtracion)
             combo=mejorComboSalaPelicula(filtracion)
-            lenTitulo = len(combo[1][0])
-            lenSala = len(combo[1][1])
-            imprimirTabla2ColumnasList(combo,[lenTitulo if lenTitulo > 12 else 12,lenSala if lenSala > 12 else 12])
-            #print(f"La mejor combinación sala - película es: '{combo[0]}' - sala {combo[1][0]}.")
+            print(f"La mejor combinación sala/película es: '{combo[0]}' - sala {combo[1][0]}.")
         else:
             filtrarEntradasPorPeliculaYSala(baseDeDatos, filtracion)
             filtrarPeliculasMayor=peliculasConMasSalas(filtracion)
@@ -215,9 +202,11 @@ try:
                 assert seguir.isalpha(), "\nSolo insertar letras. Intente nuevamente.\n"
                 seguir = seguir.upper()
                 assert seguir == "Y" or seguir == "N", "\nSolo insertar 'Y' (yes) o 'N' (not). Intente nuevamente.\n"
-                opcion = accion() if seguir == "Y" else 7
                 if seguir == "Y":
                     baseDeDatos.seek(0)
+                    opcion = accion()
+                else:
+                    opcion = 7
                 break
             except AssertionError as mensaje:
                 print(mensaje)
