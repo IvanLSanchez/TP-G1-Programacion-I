@@ -165,6 +165,7 @@ def imprimirTabla3ColumnasDict(matriz,ancho, tituloColumnas):
 #=========================================================================================================
 try:
     baseDeDatos = open("codigo/basesDeDatos/peliculas.txt","rt")
+    #Para cambiar de archivo prueba alterar le valor antes de la extension .txt
     print("Bienvenidos al centro de estadísticas de cines mcPato.")
     opcion = accion()
     while opcion != 7:
